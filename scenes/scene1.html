@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --t: 0s; --bg: #0A0A0A; --fg: #FFFFFF; --accent: #00C805; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1080px; overflow:hidden; background:var(--bg); }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--fg);
+    display:flex; align-items:center; justify-content:center;
+    font-feature-settings: "ss01" 1;
+  }
+  .stage { width:1080px; height:1080px; position:relative; }
+
+  /* "we built a thing." — fades up after 0.6s, settles, holds */
+  .hook {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 500;
+    font-size: 76px;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 1.4s cubic-bezier(.2,.7,.2,1) forwards;
+    animation-play-state: paused;
+    animation-delay: calc(-1 * var(--t, 0s));
+  }
+  @keyframes fadeUp {
+    0%   { opacity: 0; transform: translateY(8px); }
+    43%  { opacity: 1; transform: translateY(0); }   /* settled by ~0.6+0.6=1.2s */
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* tiny corner mark — brand presence on every frame */
+  .mark {
+    position:absolute; bottom:48px; right:48px;
+    font-family:'Inter', sans-serif; font-weight:600; font-size:22px;
+    letter-spacing:0.02em; opacity:0.0;
+    animation: markIn 0.8s ease-out 0.4s forwards;
+    animation-play-state: paused;
+    animation-delay: calc(-1 * var(--t, 0s) + 0.4s);
+  }
+  @keyframes markIn { to { opacity: 0.32; } }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="hook">we built a thing.</div>
+    <div class="mark">tracked.</div>
+  </div>
+</body>
+</html>

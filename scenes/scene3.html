@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --t: 0s; --bg: #FFFFFF; --fg: #0A0A0A; --muted: #6B7280; --accent: #00C805; --line: #E5E7EB; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1080px; overflow:hidden; background:var(--bg); }
+  body {
+    font-family:'Inter', system-ui, sans-serif;
+    color:var(--fg);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stage { width:1080px; height:1080px; position:relative; padding:96px; }
+
+  .caption {
+    position:absolute; top:80px; left:0; right:0; text-align:center;
+    font-size:30px; font-weight:500; letter-spacing:-0.01em;
+    opacity:0; transform: translateY(6px);
+    animation: capIn 0.8s ease-out 0.1s forwards;
+    animation-play-state: paused;
+    animation-delay: calc(-1 * var(--t) + 0.1s);
+  }
+  @keyframes capIn { to { opacity:1; transform: translateY(0); } }
+
+  /* browser frame */
+  .browser {
+    width:100%; height:680px; margin-top:48px;
+    border:1px solid var(--line); border-radius:18px; overflow:hidden;
+    background:#FAFAFA;
+    box-shadow: 0 24px 60px -32px rgba(0,0,0,.18);
+    display:flex; flex-direction:column;
+    opacity:0; transform: translateY(8px) scale(0.998);
+    animation: frameIn 0.7s cubic-bezier(.2,.7,.2,1) 0.2s forwards;
+    animation-play-state: paused;
+    animation-delay: calc(-1 * var(--t) + 0.2s);
+  }
+  @keyframes frameIn { to { opacity:1; transform: translateY(0) scale(1); } }
+
+  .bar {
+    height:44px; background:#F2F2F2; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:8px; padding:0 16px;
+  }
+  .dot { width:12px; height:12px; border-radius:50%; background:#E5E7EB; }
+  .url { margin-left:16px; flex:1; max-width:420px; height:24px; background:#fff; border-radius:6px; border:1px solid var(--line); font-family:'JetBrains Mono', monospace; font-size:13px; color:#6B7280; padding:4px 10px; display:flex; align-items:center; }
+  .url b { color: var(--accent); font-weight:500; }
+
+  .body { flex:1; padding:36px 48px; background:#fff; }
+  .body h2 { font-size:22px; font-weight:600; letter-spacing:-0.01em; margin-bottom:28px; }
+
+  .row {
+    display:flex; align-items:center; gap:20px;
+    padding:20px 0; border-bottom:1px solid var(--line);
+    opacity:0; transform: translateY(6px);
+  }
+  .row .check {
+    width:28px; height:28px; border-radius:50%; background:var(--accent);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:700; flex:0 0 28px;
+  }
+  .row .label { font-size:24px; font-weight:500; letter-spacing:-0.01em; }
+  .row .ts { margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--muted); }
+
+  .row.r1 { animation: rowIn 0.4s ease-out 0.7s forwards; animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 0.7s); }
+  .row.r2 { animation: rowIn 0.4s ease-out 0.9s forwards; animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 0.9s); }
+  .row.r3 { animation: rowIn 0.4s ease-out 1.1s forwards; animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 1.1s); }
+  @keyframes rowIn { to { opacity:1; transform: translateY(0); } }
+
+  .mark {
+    position:absolute; bottom:48px; right:48px;
+    font-weight:600; font-size:22px; letter-spacing:0.02em; color:#0A0A0A; opacity:0.18;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="caption">It tracks the things you tell it to.</div>
+    <div class="browser">
+      <div class="bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="url"><b>tracked.</b>app/list</div>
+      </div>
+      <div class="body">
+        <h2>things i'm tracking</h2>
+        <div class="row r1"><div class="check">✓</div><div class="label">Coffee</div><div class="ts">09:41 · today</div></div>
+        <div class="row r2"><div class="check">✓</div><div class="label">Morning run</div><div class="ts">09:12 · today</div></div>
+        <div class="row r3"><div class="check">✓</div><div class="label">Reply to Sam</div><div class="ts">08:55 · today</div></div>
+      </div>
+    </div>
+    <div class="mark">tracked.</div>
+  </div>
+</body>
+</html>

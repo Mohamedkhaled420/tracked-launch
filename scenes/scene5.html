@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --t:0s; --bg:#0A0A0A; --fg:#FFFFFF; --accent:#00C805; --muted:rgba(255,255,255,0.5); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1080px; overflow:hidden; background:var(--bg); }
+  body { font-family:'Inter', system-ui, sans-serif; color:var(--fg); display:flex; align-items:center; justify-content:center; }
+  .stage { width:1080px; height:1080px; position:relative; padding:96px; }
+
+  .caption-top {
+    position:absolute; top:140px; left:0; right:0; text-align:center;
+    font-size:36px; font-weight:600; letter-spacing:-0.01em;
+    opacity:0; transform:translateY(6px);
+    animation: capIn 0.8s ease-out 0.15s forwards;
+    animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 0.15s);
+  }
+  @keyframes capIn { to { opacity:1; transform:translateY(0); } }
+
+  .chart-wrap {
+    position:absolute; left:140px; right:140px; top:280px; bottom:280px;
+  }
+  .chart-svg { width:100%; height:100%; display:block; overflow:visible; }
+
+  /* The line draws itself left-to-right via stroke-dashoffset */
+  .line {
+    fill:none; stroke:var(--accent); stroke-width:6; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw 1.8s cubic-bezier(.4,0,.2,1) 0.6s forwards;
+    animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 0.6s);
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* dots appear at each data point as the line passes */
+  .pt { fill:var(--accent); opacity:0; }
+  .pt.p1 { animation: ptIn 0.25s ease-out 0.9s forwards;  animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 0.9s); }
+  .pt.p2 { animation: ptIn 0.25s ease-out 1.2s forwards;  animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 1.2s); }
+  .pt.p3 { animation: ptIn 0.25s ease-out 1.5s forwards;  animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 1.5s); }
+  .pt.p4 { animation: ptIn 0.25s ease-out 1.85s forwards; animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 1.85s); }
+  .pt.p5 { animation: ptIn 0.3s  ease-out 2.15s forwards; animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 2.15s); }
+  @keyframes ptIn { to { opacity:1; } }
+
+  /* axis: just a horizontal baseline */
+  .axis { stroke:rgba(255,255,255,0.08); stroke-width:1; }
+
+  .caption-bottom {
+    position:absolute; bottom:160px; left:0; right:0; text-align:center;
+    font-size:24px; font-weight:500; color:var(--muted); letter-spacing:-0.01em;
+    opacity:0; transform:translateY(4px);
+    animation: capIn 0.7s ease-out 1.4s forwards;
+    animation-play-state:paused; animation-delay:calc(-1 * var(--t) + 1.4s);
+  }
+
+  .mark {
+    position:absolute; bottom:48px; right:48px;
+    font-weight:600; font-size:22px; letter-spacing:0.02em; opacity:0.32;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="caption-top">It tracks so well.</div>
+    <div class="chart-wrap">
+      <svg class="chart-svg" viewBox="0 0 800 320" preserveAspectRatio="none">
+        <line class="axis" x1="0" y1="310" x2="800" y2="310" />
+        <polyline class="line" points="20,260 180,230 320,210 460,150 600,110 780,40" />
+        <circle class="pt p1" cx="20"  cy="260" r="6" />
+        <circle class="pt p2" cx="180" cy="230" r="6" />
+        <circle class="pt p3" cx="320" cy="210" r="6" />
+        <circle class="pt p4" cx="460" cy="150" r="6" />
+        <circle class="pt p5" cx="780" cy="40"  r="8" />
+      </svg>
+    </div>
+    <div class="caption-bottom">(the line goes up.)</div>
+    <div class="mark">tracked.</div>
+  </div>
+</body>
+</html>
